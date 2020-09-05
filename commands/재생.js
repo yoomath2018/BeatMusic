@@ -15,7 +15,7 @@ exports.run = async (client, message, args, ops) => {
 				var videos = await youtube.searchVideos(searchString, 10)
 				var index = 0
 				message.channel.send(`
-				__**곡 고르기**__\n${videos.map(video2 => `**${++index} - **${video2.title}`).join('\n')}\n1부터 10중 번호를 고르세요!(30초)`)
+				__**곡 고르기**__\n${videos.map(video2 => `**${++index} - **${video2.title}`).join('\n')}\n1부터 10중 번호를 고르세요! (30초)`)
 				try {
 					var responce = await message.channel.awaitMessages(msg => msg.content > 0 && msg.content < 11, {
 						max: 1,
