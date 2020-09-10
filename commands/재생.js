@@ -1,6 +1,7 @@
 const Youtube = require('simple-youtube-api');
 const youtube = new Youtube('AIzaSyCXt16QwAeQzwvJ-86LEwouXmh5PZ6Zy80');
 const ytdl = require('ytdl-core');
+const { waiting } = require('../config.json');
 exports.run = async (client, message, args, ops) => {
 	if(!args[0]) return message.channel.send('곡의 이름이나 유튜브 URL을 써 주세요!');
 	if(!message.member.voice.channel) return message.channel.send('음성 채널에 연결해 주세요!');
@@ -14,7 +15,7 @@ exports.run = async (client, message, args, ops) => {
 			try {
 				var videos = await youtube.searchVideos(searchString, 10)
 				var index = 0
-				message.channel.send(`
+				sendmessage = await amessage.channel.send(`
 				__**곡 고르기**__\n${videos.map(video2 => `**${++index} - **${video2.title}`).join('\n')}\n1부터 10중 번호를 고르세요! (30초)`)
 				try {
 					var responce = await message.channel.awaitMessages(msg => msg.content > 0 && msg.content < 11, {
@@ -23,7 +24,7 @@ exports.run = async (client, message, args, ops) => {
 						errors: ['time']
 					})
 				} catch {
-					return message.channel.send('시간이 지나 취소되었습니다!');
+					return sendmessage.edit('시간이 지나 취소되었습니다!');
 				}
 				const videoindex = parseInt(responce.first().content)
 				var video = await youtube.getVideoByID(videos[videoindex - 1].id)
@@ -33,7 +34,7 @@ exports.run = async (client, message, args, ops) => {
 		}
 		let musicUrl = `https://www.youtube.com/watch?v=${video.id}`
 
-		message.channel.send('*음악 찾는 중....*');
+		responce.edit('*음악 찾는 중....*');
 		let data = ops.active.get(message.guild.id) || {};
 		let info = await ytdl.getInfo(musicUrl);
 		
