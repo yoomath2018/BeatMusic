@@ -20,7 +20,7 @@ exports.run = async (client, message, args, ops) => {
 				try {
 					var responce = await message.channel.awaitMessages(msg => msg.content > 0 && msg.content < 11, {
 						max: 1,
-						time: 300000,
+						time: waiting * 1000,
 						errors: ['time']
 					})
 				} catch {
