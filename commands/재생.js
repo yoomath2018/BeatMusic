@@ -38,7 +38,6 @@ exports.run = async (client, message, args, ops) => {
 		let data = ops.active.get(message.guild.id) || {};
 		let info = await ytdl.getInfo(musicUrl);
 		
-		
 
 		if(!data.connection) data.connection = await message.member.voice.channel.join();
 		if(!data.queue) data.queue = [];
