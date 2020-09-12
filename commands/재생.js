@@ -34,7 +34,7 @@ exports.run = async (client, message, args, ops) => {
 		}
 		let musicUrl = `https://www.youtube.com/watch?v=${video.id}`
 
-		responce.edit('*음악 찾는 중....*');
+		responce.edit('*음악 불러오는 중....*');
 		let data = ops.active.get(message.guild.id) || {};
 		let info = await ytdl.getInfo(musicUrl);
 		
